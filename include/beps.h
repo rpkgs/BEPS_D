@@ -1,3 +1,6 @@
+#ifndef BEPS_H
+#define BEPS_H
+
 /*************************************************************************
   program: 	beps.h
   Description:  Header file for defining constants and global variables
@@ -13,6 +16,9 @@
 #include<stdlib.h>
 #include<math.h>
 #include<malloc.h>
+
+#define max(a, b) ((a) > (b)) ? (a) : (b)
+#define min(a, b) ((a) < (b)) ? (a) : (b)
 
 /* Define Constants */
 #define NOERROR		0
@@ -135,3 +141,5 @@ float *dc;	/*Delta column values*/
 unsigned char *row_index;
 unsigned char *col_index;
 double *z;
+
+#endif
