@@ -13,7 +13,7 @@
 
 #include "beps.h"
 
-void rs(b, g, x, z) double b[], g[], x[], z[];
+void rs(double b[], double g[], double x[], double z[])
 {
     /* declaration for temporary variables/functions */
     double ppfd;

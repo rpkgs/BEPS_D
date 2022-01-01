@@ -36,8 +36,7 @@
 
 #include "beps.h"
 
-void carbon(b, g, x, z) double b[], g[], x[], z[];
-{
+void carbon(double b[], double g[], double x[], double z[]) {
     double exponent;
     double sapw_max = 0.1;
     double rf25, pr; /* for Rm with Bonan (1995) */
@@ -55,11 +54,9 @@ void carbon(b, g, x, z) double b[], g[], x[], z[];
     g[23] = max(g[23], 0.0);
 
     /* gross psn */
-
     farq_psn(z, g);
 
     /* daily gross psn */
-
     /* convert umol C/m2/s --> kg C/m2/period */
     g[24] = (g[28] * z[32] + g[29] * z[33]) * z[18] * 12 / 1000000000;
 
@@ -148,12 +145,10 @@ void carbon(b, g, x, z) double b[], g[], x[], z[];
     printf("\n Sten bio =%f kg C/m2",x[9]);
     printf("\n Root bio =%f kg C/m2",x[10]);
  */
-
     return;
 }
 
-int farq_psn(z, g) double z[], g[];
-{
+int farq_psn(double z[], double g[]) {
     double pa;   /* (Pa) atmospheric pressure */
                  //	double co2;		/* (ppm) atmospheric [CO2] */
     double t;    /* (deg C) air temperature */

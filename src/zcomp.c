@@ -319,13 +319,19 @@ struct climatedata sdat[];
     return;
 }
 
-int rad_ssl(sg, cos_theta, lai_p, omega, ssun, sshade) double sg; /* global radiation W m-2 */
-double cos_theta;                                                 /* solar zenith angle */
-double lai_p;                                                     /* LAI */
-double omega;                                                     /* clumping index */
-double *ssun;                                                     /* radiation for sunlit leaves */
-double *sshade;                                                   /* radiation for shaded leaves */
-{
+/**
+ * @brief 
+ * 
+ * @param sg global radiation W m-2
+ * @param cos_theta solar zenith angle 
+ * @param lai_p LAI
+ * @param omega clumping index
+ * 
+ * @param *ssun   radiation for sunlit leaves
+ * @param *sshade radiation for shaded leaves
+ * @return int 
+ */
+int rad_ssl(double sg, double cos_theta, double lai_p, double omega, double *ssun, double *sshade) {
     double theta_avg;  /* Mean cos(thita) */
     double s0;         /* solar constant (=1367 W m-2) */
     double rr;         /* ratio of sdif_over to sg */
@@ -335,7 +341,6 @@ double *sshade;                                                   /* radiation f
     double c;          /* radiation from multiple scattering */
 
     /************* calcuate sdir and sdif_over ********************/
-
     s0 = 1367;
 
     if (cos_theta < 0.01) {
@@ -374,18 +379,22 @@ double *sshade;                                                   /* radiation f
     return 1;
 }
 
-int net_shortwave(sg, cos_theta, lai_p, omega, ssun, sshade, lai_u, n_ssun, n_sshade, n_sunder, n_sground) double sg; /* global radiation W m-2 */
-double cos_theta;                                                                                                     /* solar zenith angle */
-double lai_p;                                                                                                         /* LAI */
-double omega;                                                                                                         /* clumping index */
-double *ssun;                                                                                                         /* radiation for sunlit leaves */
-double *sshade;                                                                                                       /* radiation for shaded leaves */
-double lai_u;                                                                                                         /* understory lai */
-double *n_ssun;                                                                                                       // net shortwave radiation for sun lit leaves
-double *n_sshade;                                                                                                     // net shortwave radiation for sun lit leaves
-double *n_sunder;                                                                                                     // net shortwave radiation for understory
-double *n_sground;                                                                                                    // net shortwave radiation for gound
-
+/**
+ * @param sg         global radiation W m-2 
+ * @param cos_theta  solar zenith angle 
+ * @param lai_p      LAI 
+ * @param omega      clumping index 
+ * @param *ssun      radiation for sunlit leaves
+ * @param *sshade    radiation for shaded leaves 
+ * @param lai_u      understory lai 
+ * @param *n_ssun    net shortwave radiation for sun lit leaves
+ * @param *n_sshade  net shortwave radiation for sun lit leaves
+ * @param *n_sunder  net shortwave radiation for understory
+ * @param *n_sground net shortwave radiation for gound
+ */
+int net_shortwave(double sg, double cos_theta, double lai_p, double omega,
+                  double *ssun, double *sshade, double lai_u, 
+                  double *n_ssun, double *n_sshade, double *n_sunder, double *n_sground) 
 {
     double theta_avg;  /* Mean cos(theta) */
     double s0;         /* solar constant (=1367 W m-2) */
@@ -400,9 +409,7 @@ double *n_sground;                                                              
     double theta_avg_under; /* Mean cos(theta) for understory */
 
     /************* calcuate sdir and sdif_over ********************/
-
     s0 = 1367;
-
     if (cos_theta < 0.01) {
         sdif_over = 0;
         sdir = 0;
@@ -457,14 +464,10 @@ double *n_sground;                                                              
     return 1;
 }
 
-int net_longwave(lai_o, lai_u, omega, es, ta, m_lnet_o, m_lnet_u, lnet_g) double lai_o;
-double lai_u;
-double omega;
-double es;
-double ta;
-double *m_lnet_o;
-double *m_lnet_u;  // mean longwave radiation
-double *lnet_g;    // longwave radiation for soil
+// double *m_lnet_u;  // mean longwave radiation
+// double *lnet_g;    // longwave radiation for soil
+int net_longwave(double lai_o, double lai_u, double omega, double es, double ta,
+                 double *m_lnet_o, double *m_lnet_u, double *lnet_g)
 {
     double sigma;  //Stefan-Boltzmann constant =5.67*10^(-8) W m^-2 K^-4
     double epsilon_a, epsilon_o, epsilon_u, epsilon_g;

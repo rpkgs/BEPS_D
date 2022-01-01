@@ -13,7 +13,7 @@
 #include "beps.h"
 double penmon();
 
-void doflux(b, g, x, z) double b[], g[], x[], z[];
+void doflux(double b[], double g[], double x[], double z[])
 {
     double soilw_in = 0;
     double soilw_out = 0;

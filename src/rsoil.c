@@ -11,7 +11,7 @@
 *****************************************************************************/
 #include "beps.h"
 
-void rsoil(b, g, x, z) double b[], g[], x[], z[];
+void rsoil(double b[], double g[], double x[], double z[])
 {
     double rsw; /* relative soil moisture */
 

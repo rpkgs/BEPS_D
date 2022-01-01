@@ -12,18 +12,14 @@
 
 #include "beps.h"
 
-void model(jday, pix, day_start, lat_p, lai_p, awc_p, lc_p, x, b, sdat, xx) int long pix;
-int short jday;
-int short day_start;
-
-double lai_p;
-double lat_p;
-double awc_p;
-int short lc_p;
-double x[];
-double b[];
-struct climatedata sdat[];
-struct xvalue xx[];
+void model(
+    int long pix, int short jday, int short day_start,
+    double lai_p, double lat_p, double awc_p,
+    int short lc_p,
+    double x[],
+    double b[],
+    struct climatedata sdat[],
+    struct xvalue xx[]) 
 {
     FILE *output;
 

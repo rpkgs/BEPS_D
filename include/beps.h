@@ -36,44 +36,6 @@
 #define RTIMES 1
 #define RPERIOD 3600 /* in sec */
 
-void readconf();
-void readb_init();
-void pixtolon();
-void readindex();
-void readlc();
-void readawc();
-void readsnow();
-void readbm();
-void readlai();
-void readclim();
-void readb();
-void model();
-
-void setx();
-
-void zeroxx();
-void readxx();
-void writexx();
-
-void zcomp();
-void doflux();
-
-void inter();
-void melt();
-void ra();
-void rs();
-void rsoil();
-void carbon();
-
-int net_longwave();
-int net_shortwave();
-int farq_psn();
-int rad_ssl();
-
-double penman();
-
-void display();
-
 /* Declare structures */
 struct climatedata {
     int long pix;
@@ -106,6 +68,57 @@ struct xvalue {
     double x17; /* Number of days with rain */
     double x18; /* understory Trans */
 };
+
+
+void readconf();
+void readb_init();
+void pixtolon();
+void readindex();
+void readlc();
+void readawc();
+void readsnow();
+void readbm();
+void readlai();
+void readclim();
+void readb();
+
+void model(int long pix, int short jday, int short day_start,
+    double lai_p, double lat_p, double awc_p,
+    int short lc_p,
+    double x[],
+    double b[],
+    struct climatedata sdat[],
+    struct xvalue xx[]);
+
+void setx();
+
+void zeroxx();
+void readxx();
+void writexx();
+
+void zcomp();
+void doflux(double b[], double g[], double x[], double z[]);
+
+void inter(double b[], double g[], double x[], double z[]);
+void melt(double b[], double g[], double x[], double z[]);
+void ra(double b[], double g[], double x[], double z[]);
+void rs(double b[], double g[], double x[], double z[]);
+
+void rsoil(double b[], double g[], double x[], double z[]);
+
+void carbon(double b[], double g[], double x[], double z[]);
+int farq_psn(double z[], double g[]);
+
+int net_longwave(double lai_o, double lai_u, double omega, double es, double ta,
+                 double *m_lnet_o, double *m_lnet_u, double *lnet_g);
+int net_shortwave(double sg, double cos_theta, double lai_p, double omega,
+                  double *ssun, double *sshade, double lai_u,
+                  double *n_ssun, double *n_sshade, double *n_sunder, double *n_sground);
+int rad_ssl(double sg, double cos_theta, double lai_p, double omega, double *ssun, double *sshade);
+double penmon(double tair, double vpd, double wrad, double acond, double scond);
+
+void display();
+
 
 /*	Declare global variables */
 char awcf[255];       /* Available water holding capacity file */

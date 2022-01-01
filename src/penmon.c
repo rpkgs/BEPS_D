@@ -13,10 +13,8 @@
 
 #include <math.h>
 
-double penmon(tair, vpd, wrad, acond, scond) double tair, vpd, wrad, acond, scond;
-{
+double penmon(double tair, double vpd, double wrad, double acond, double scond) {
     /*  penmon-monteith function */
-
     double a1, a2, b1, b2, c1, c2, d1, d2;
     double t1, t2, gamma, svp1, svp2, slope;
     double cp, pa, ra, rs, xlat, xtrans, penmon;

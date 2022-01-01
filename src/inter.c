@@ -30,7 +30,7 @@
 
 #include "beps.h"
 
-void inter(b, g, x, z) double b[], g[], x[], z[];
+void inter(double b[], double g[], double x[], double z[])
 {
     double lh_evp = 2.5E+6;
     double lh_sub = 2.8E+6;

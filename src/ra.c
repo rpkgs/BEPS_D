@@ -12,7 +12,7 @@
 
 #include "beps.h"
 
-void ra(b, g, x, z) double b[], g[], x[], z[];
+void ra(double b[], double g[], double x[], double z[])
 {
     /* input */
     double u = 5;       /* wind speed at height z */

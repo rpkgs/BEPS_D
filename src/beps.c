@@ -217,15 +217,15 @@ char *argv[];
                     for (pix = 0; pix < npixels; pix++) {
                         output[pix] = (unsigned char)(npp[pix] * factor);
                         /*	printf("npp=%6.4f\n",npp[0]);
-					 	printf("gpp=%6.4f\n",xx[0].x11);					   
-						printf("rm=%6.4f\n",xx[0].x7);
-						printf("rm leaf=%6.4f\n",xx[0].x14);
-						printf("rm stem=%6.4f\n",xx[0].x15);
-						printf("rm root=%6.4f\n",xx[0].x16);
-						printf("out=%6.4f\n",xx[0].x3);
-					  	printf("tra=%6.4f\n",xx[0].x4); 
-					  	printf("evp=%6.4f\n",xx[0].x5); 
-						printf("evp_soil=%6.4f\n",xx[0].x15); */
+                         printf("gpp=%6.4f\n",xx[0].x11);					   
+                        printf("rm=%6.4f\n",xx[0].x7);
+                        printf("rm leaf=%6.4f\n",xx[0].x14);
+                        printf("rm stem=%6.4f\n",xx[0].x15);
+                        printf("rm root=%6.4f\n",xx[0].x16);
+                        printf("out=%6.4f\n",xx[0].x3);
+                          printf("tra=%6.4f\n",xx[0].x4); 
+                          printf("evp=%6.4f\n",xx[0].x5); 
+                        printf("evp_soil=%6.4f\n",xx[0].x15); */
                         if (lc[pix] != 0 && output[pix] == 0) output[pix] = 1;
                         if (lc[pix] != 0 && output[pix] > 200) output[pix] = 1;
                     }
@@ -234,15 +234,15 @@ char *argv[];
                     if (rcode == ERROR) exit(0);
                 }
                 /*
-			    if(output_res=='y' || output_res=='Y') {                
-				   for(pix=0; pix<npixels; pix++) {
-					  output[pix]=(unsigned char)(0.8*xx[pix].x11*factor);
-                	   if(lc[pix]!=0 && output[pix]==0)  output[pix]=1;
-			       }
-		           sprintf(outf_name,"cgpp%d.img",j);
-	               display(outf_name,output,&rcode);
-	               if (rcode == ERROR) exit(0);
-			   }
+                if(output_res=='y' || output_res=='Y') {                
+                   for(pix=0; pix<npixels; pix++) {
+                      output[pix]=(unsigned char)(0.8*xx[pix].x11*factor);
+                       if(lc[pix]!=0 && output[pix]==0)  output[pix]=1;
+                   }
+                   sprintf(outf_name,"cgpp%d.img",j);
+                   display(outf_name,output,&rcode);
+                   if (rcode == ERROR) exit(0);
+               }
 
   */
 

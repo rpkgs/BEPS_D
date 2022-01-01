@@ -24,7 +24,7 @@
 *****************************************************************************/
 #include "beps.h"
 
-void melt(b, g, x, z) double b[], g[], x[], z[];
+void melt(double b[], double g[], double x[], double z[])
 {
     double lh_fus = 3.5E+5;
     double lh_evp = 2.5E+6;
