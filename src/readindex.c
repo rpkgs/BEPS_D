@@ -35,78 +35,69 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "ncar.h"
-#include "beps.h"
 
-void readindex(lin,rcode)
-int lin;		/* Line number */
+#include "beps.h"
+#include "ncar.h"
+
+void readindex(lin, rcode) int lin; /* Line number */
 int short *rcode;
 {
+    FILE *fdr, *fdc, *frow, *fcol; /* Pointers to bilinear interpolation files */
+    int bytes = 4;                 /* Number of bytes for a float data type */
+    int ptr, size, nitems;
 
-	FILE *fdr, *fdc, *frow, *fcol; /* Pointers to bilinear interpolation files */
-	int bytes=4;					/* Number of bytes for a float data type */
-	int ptr, size, nitems;
-   
+    /*	Open Binary interpolation files */
+    if ((fdr = fopen(deltarowf, "rb")) == NULL) {
+        printf("\n Unable to open file<%s>,  exitting program ...\n\n",
+               deltarowf);
+        *rcode = ERROR;
+        return;
+    }
 
-/*	Open Binary interpolation files */
-	if ((fdr= fopen(deltarowf,"rb")) ==NULL) {
-          printf("\n Unable to open file<%s>,  exitting program ...\n\n",
-							deltarowf);
-          *rcode = ERROR;
-	  return;
-        }
+    if ((fdc = fopen(deltacolf, "rb")) == NULL) {
+        printf("\n Unable to open file<%s>,  exitting program ...\n\n",
+               deltacolf);
+        *rcode = ERROR;
+        return;
+    }
 
-	if ((fdc=fopen(deltacolf,"rb")) == NULL) {
-          printf("\n Unable to open file<%s>,  exitting program ...\n\n",
-							deltacolf);
-          *rcode = ERROR;
-	  return;
-        }
+    if ((frow = fopen(rowf, "rb")) == NULL) {
+        printf("\n Unable to open file<%s>,  exitting program ...\n\n",
+               rowf);
+        *rcode = ERROR;
+        return;
+    }
 
-	if ((frow=fopen(rowf,"rb")) == NULL) {
-          printf("\n Unable to open file<%s>,  exitting program ...\n\n",
-							rowf);
-          *rcode = ERROR;
-	  return;
-        }
- 
-	if ((fcol=fopen(colf,"rb")) == NULL) {
-          printf("\n Unable to open file<%s>,  exitting program ...\n\n",
-							colf);
-          *rcode = ERROR;
-	  return;
-        }
- 
-	
-/*	*** Read a line of data from the binary interpolation files ***/
+    if ((fcol = fopen(colf, "rb")) == NULL) {
+        printf("\n Unable to open file<%s>,  exitting program ...\n\n",
+               colf);
+        *rcode = ERROR;
+        return;
+    }
 
-/*      Set pointer to start of output data for defined bytes */
-        ptr=lin*NPIX_CAN + pix_offset;
+    /*	*** Read a line of data from the binary interpolation files ***/
 
-/*      Seek to and Read data from row and col index files */
-        fseek(frow,ptr,0);
-        fseek(fcol,ptr,0);
-        fread(&row_index[0],size=1,nitems=npixels,frow);
-        fread(&col_index[0],size=1,nitems=npixels,fcol);
+    /*      Set pointer to start of output data for defined bytes */
+    ptr = lin * NPIX_CAN + pix_offset;
 
-/*      Set pointer to start of line data */
-        ptr=bytes*(lin*NPIX_CAN + pix_offset);
+    /*      Seek to and Read data from row and col index files */
+    fseek(frow, ptr, 0);
+    fseek(fcol, ptr, 0);
+    fread(&row_index[0], size = 1, nitems = npixels, frow);
+    fread(&col_index[0], size = 1, nitems = npixels, fcol);
 
-/*      Seek to and Read data from delta row and col files */
-        fseek(fdr,ptr,0);
-        fseek(fdc,ptr,0);
-        fread(&dr[0],size=4,nitems=npixels,fdr);
-        fread(&dc[0],size=4,nitems=npixels,fdc);
+    /*      Set pointer to start of line data */
+    ptr = bytes * (lin * NPIX_CAN + pix_offset);
 
-/*	    Close Input, Output Files */
-        fclose(frow);
-        fclose(fcol);
-        fclose(fdr);
-        fclose(fdc);
+    /*      Seek to and Read data from delta row and col files */
+    fseek(fdr, ptr, 0);
+    fseek(fdc, ptr, 0);
+    fread(&dr[0], size = 4, nitems = npixels, fdr);
+    fread(&dc[0], size = 4, nitems = npixels, fdc);
+
+    /*	    Close Input, Output Files */
+    fclose(frow);
+    fclose(fcol);
+    fclose(fdr);
+    fclose(fdc);
 }
-
-
-
-
-
-

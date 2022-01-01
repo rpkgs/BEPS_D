@@ -27,53 +27,47 @@
   Written by:   J. Liu      
   Last update:	December 2000
 *****************************************************************************/
-	
-#include "beps.h" 
-  
-void inter(b,g,x,z) 
-    double  b[], g[], x[], z[];
+
+#include "beps.h"
+
+void inter(b, g, x, z) double b[], g[], x[], z[];
 {
-    double lh_evp=2.5E+6; 
-	double lh_sub=2.8E+6;
- 
-	/* fresh snow */
-	b[8]=0.05; 
+    double lh_evp = 2.5E+6;
+    double lh_sub = 2.8E+6;
 
-/* intercepted precip */
-	g[11]= min(z[3],z[10]* b[4]);
+    /* fresh snow */
+    b[8] = 0.05;
 
-/* rain vs snow */
- 
-    if (z[14]  > 0.0 ) {    
+    /* intercepted precip */
+    g[11] = min(z[3], z[10] * b[4]);
+
+    /* rain vs snow */
+
+    if (z[14] > 0.0) {
         g[1] = z[3] - g[11];
-		g[2] = 0.0; 
-    } 
-    else {
-	    g[1]=0.0; 
-        g[2] = z[3] - g[11];		
-     }
+        g[2] = 0.0;
+    } else {
+        g[1] = 0.0;
+        g[2] = z[3] - g[11];
+    }
 
-/* water loss from canopy */
-	if (z[14]  > 0.0 ) {
-        g[4] = min(g[11], z[8]*b[7]/lh_evp);
-		g[5] =0.0;
-    } 
-    else {
-		g[4] =0.0;
-        g[5] = min(g[11], z[8]*b[8]/lh_sub);	
-     }
+    /* water loss from canopy */
+    if (z[14] > 0.0) {
+        g[4] = min(g[11], z[8] * b[7] / lh_evp);
+        g[5] = 0.0;
+    } else {
+        g[4] = 0.0;
+        g[5] = min(g[11], z[8] * b[8] / lh_sub);
+    }
 
-/* canopy water to ground */
-	if (z[14]  > 0.0 ) {      
-		g[6] = max(0.0, g[11]-g[4]);
-		g[7] =0.0;
-    } 
-    else { 
-		g[6]=0.0;
-		g[7] = max(0.0, g[11]-g[5]);
-     }
+    /* canopy water to ground */
+    if (z[14] > 0.0) {
+        g[6] = max(0.0, g[11] - g[4]);
+        g[7] = 0.0;
+    } else {
+        g[6] = 0.0;
+        g[7] = max(0.0, g[11] - g[5]);
+    }
 
     return;
 }
- 
- 

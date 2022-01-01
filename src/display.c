@@ -12,27 +12,23 @@
   Written by:   J. Liu
   Last update:	May 1998
 *****************************************************************************/
-	
-#include"beps.h"
-   
-void display(outf_name,out,rcode)
-  unsigned char *out;
-  char outf_name[255];
-  int short *rcode;
-  {
-   FILE *outfile;   
 
-  int size,nelems;
- 
-  
-  if ((outfile=fopen(outf_name, "a+b"))== NULL)
-    {
-     printf("\n Unable to open file <%s>,  exitting program ...\n\n",
-                                                outf_name);
-     *rcode = ERROR;
+#include "beps.h"
+
+void display(outf_name, out, rcode) unsigned char *out;
+char outf_name[255];
+int short *rcode;
+{
+    FILE *outfile;
+
+    int size, nelems;
+
+    if ((outfile = fopen(outf_name, "a+b")) == NULL) {
+        printf("\n Unable to open file <%s>,  exitting program ...\n\n",
+               outf_name);
+        *rcode = ERROR;
     }
-  
-  fwrite(&out[0],size=1,nelems=npixels,outfile);
-  fclose(outfile);
-  }
 
+    fwrite(&out[0], size = 1, nelems = npixels, outfile);
+    fclose(outfile);
+}

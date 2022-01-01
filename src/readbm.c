@@ -13,56 +13,49 @@
 #include <malloc.h>
 #include <stdio.h>
 #include <string.h>
+
 #include "beps.h"
 
-void readbm(line,xx,rcode)
-int long line;		/* Line number */
-struct xvalue xx[]; 
+void readbm(line, xx, rcode) int long line; /* Line number */
+struct xvalue xx[];
 int short *rcode;
 {
-	FILE *fbm; /* Pointers biomass file */
-	char filename_bm[80] = "c:\\bepsinput\\common\\bm_ccrs00.img";
-	int short *bm;
-	int ptr, size, nitems;
-	int bytes=2;		/* Number of bytes for a unsigned int data type */
-	int long pix;
+    FILE *fbm; /* Pointers biomass file */
+    char filename_bm[80] = "c:\\bepsinput\\common\\bm_ccrs00.img";
+    int short *bm;
+    int ptr, size, nitems;
+    int bytes = 2; /* Number of bytes for a unsigned int data type */
+    int long pix;
 
-	bm=(int short*)malloc(npixels*sizeof(int short));
-	
-/*	Open biomass file */
-	if ((fbm= fopen(filename_bm,"rb")) ==NULL) {
-          printf("\n Unable to open file<%s>,  exitting program ...\n\n",
-							filename_bm);
-          *rcode = ERROR;
-	  return;
-     }
+    bm = (int short *)malloc(npixels * sizeof(int short));
 
-/*	*** Read a line of data from the biomass file ***/
+    /*	Open biomass file */
+    if ((fbm = fopen(filename_bm, "rb")) == NULL) {
+        printf("\n Unable to open file<%s>,  exitting program ...\n\n",
+               filename_bm);
+        *rcode = ERROR;
+        return;
+    }
 
-/*      Set pointer to start of line data */
-       
-        ptr=bytes*(line*NPIX_CAN + pix_offset);
+    /*	*** Read a line of data from the biomass file ***/
 
-/*      Seek to and Read data from delta row and col files */
-        
-		fseek(fbm,ptr,0);     
-        fread(&bm[0],size=bytes,nitems=npixels,fbm);
+    /*      Set pointer to start of line data */
 
-		for (pix=0;pix<npixels;pix++){
-/*		Biomass in ton/ha */
-			xx[pix].x9=(double)bm[pix]*0.1;
-			//printf("biomass=%f\n",xx[pix].x9);
+    ptr = bytes * (line * NPIX_CAN + pix_offset);
 
-		}
-/*	    Close input file and memory */
-        fclose(fbm);
-		free(bm);
+    /*      Seek to and Read data from delta row and col files */
 
-		return;
+    fseek(fbm, ptr, 0);
+    fread(&bm[0], size = bytes, nitems = npixels, fbm);
+
+    for (pix = 0; pix < npixels; pix++) {
+        /*		Biomass in ton/ha */
+        xx[pix].x9 = (double)bm[pix] * 0.1;
+        //printf("biomass=%f\n",xx[pix].x9);
+    }
+    /*	    Close input file and memory */
+    fclose(fbm);
+    free(bm);
+
+    return;
 }
-
-
-
-
-
-

@@ -22,33 +22,29 @@
   Written by:   J. Liu     
   Last update:	December 2000
 *****************************************************************************/
-#include "beps.h" 
+#include "beps.h"
 
-void melt (b, g, x, z) 
-    double b[], g[], x[], z[];
-    {
-	double lh_fus=3.5E+5;
-	double lh_evp=2.5E+6; 
-	double lh_sub=2.8E+6;
+void melt(b, g, x, z) double b[], g[], x[], z[];
+{
+    double lh_fus = 3.5E+5;
+    double lh_evp = 2.5E+6;
+    double lh_sub = 2.8E+6;
 
-/*	b[8]: snow absorption */
-	b[8]=0.3/3.0;
-//	b[8]=0.3;
+    /*	b[8]: snow absorption */
+    b[8] = 0.3 / 3.0;
+    //	b[8]=0.3;
 
-
-    if (z[14] > 0.0) { 
-	    g[8] = z[8]*b[8]/lh_fus;	/* radiation  melt */ 
-		g[9] = b[6] * z[14];		/* temperature melt */ 
-		g[3] = min (x[1], (g[8]+g[9]));
-		g[13] =0.0;
-	}
-    else { 
-		g[8]=0.0;
-		g[9]=0.0;
-		g[3]=0.0;
-		g[13] = min(x[1], ((z[8]-z[19])*b[8]/lh_sub));
-	}
-//	printf("g[8]=%6.4f \n", g[8]*1000);
+    if (z[14] > 0.0) {
+        g[8] = z[8] * b[8] / lh_fus; /* radiation  melt */
+        g[9] = b[6] * z[14];         /* temperature melt */
+        g[3] = min(x[1], (g[8] + g[9]));
+        g[13] = 0.0;
+    } else {
+        g[8] = 0.0;
+        g[9] = 0.0;
+        g[3] = 0.0;
+        g[13] = min(x[1], ((z[8] - z[19]) * b[8] / lh_sub));
+    }
+    //	printf("g[8]=%6.4f \n", g[8]*1000);
     return;
-  } 
- 
+}
